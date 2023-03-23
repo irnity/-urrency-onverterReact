@@ -32,7 +32,7 @@ function App() {
   return (
     <Card>
       <Header currency={currency} />
-      <Main />
+      <Main currency={currency} />
     </Card>
   )
 }

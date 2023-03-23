@@ -1,6 +1,30 @@
+import { useState } from "react"
 import classes from "./Main.module.css"
 
 function Main() {
+  const [value, setValue] = useState(0)
+  const [input, setInput] = useState(0)
+  const [output, setOutput] = useState(0)
+
+  const valueHandler = (event) => {
+    setValue(parseInt(event.target.value))
+    // console.log(parseInt(event.target.value))
+    inputHandler(parseInt(event.target.value))
+    outputHandler(parseInt(event.target.value))
+  }
+
+  const inputHandler = (value) => {
+    // inputHandler(event)
+    setInput(value + 5)
+    // setOutput(input + 5)
+  }
+
+  const outputHandler = (value) => {
+    // inputHandler(event)
+    setOutput(value + 5)
+    // setOutput(input + 5)
+  }
+
   return (
     <main className={classes.box}>
       <div className={classes.info}>
@@ -11,9 +35,11 @@ function Main() {
               Input currency
             </label>
             <input
-              placeholder="Write you value"
+              // placeholder="Write you value"
               type="number"
               min={0}
+              value={input}
+              onChange={valueHandler}
               name="inputCurrency"
               id="inputCurrency"
               className={classes.text}
@@ -43,9 +69,11 @@ function Main() {
               Input currency
             </label>
             <input
-              placeholder="Write you value"
+              // placeholder="Write you value"
               type="number"
               min={0}
+              value={output}
+              onChange={outputHandler}
               name="outputCurrency"
               id="outputCurrency"
               className={classes.text}
