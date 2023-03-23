@@ -1,0 +1,36 @@
+.box {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
+  /* border: 1px solid red; */
+}
+.name {
+  display: flex;
+  justify-content: flex-start;
+  width: 70%;
+  /* border: 1px solid red; */
+}
+.name span {
+  margin-left: 15%;
+  font-size: 1.5em;
+}
+
+.currencyBox {
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
+  /* border: 1px solid red; */
+}
+.currency {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.currencyBox span {
+  font-size: 1.5em;
+}
