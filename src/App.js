@@ -6,7 +6,7 @@ import Main from "./components/Main"
 
 function App() {
   const [data, setData] = useState([])
-  const [currency, setCurrency] = useState([])
+  const [currency, setCurrency] = useState([{ name: "UAH", rate: 1 }])
 
   useEffect(() => {
     async function getResponce() {
@@ -25,13 +25,16 @@ function App() {
 
   useEffect(() => {
     const values = ["USD", "EUR"]
-    const datas = data.filter((data) => values.includes(data.cc))
-    setCurrency(datas)
+    const datas = data
+      .filter((data) => values.includes(data.cc))
+      .map((data) => ({ name: data.cc, rate: data.rate }))
+    setCurrency((prevState) => [...prevState, ...datas])
   }, [data])
 
   return (
     <Card>
       <Header currency={currency} />
+
       <Main currency={currency} />
     </Card>
   )

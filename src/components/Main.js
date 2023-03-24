@@ -1,28 +1,59 @@
 import { useState } from "react"
 import classes from "./Main.module.css"
 
-function Main() {
-  const [value, setValue] = useState(0)
+function Main({ currency }) {
   const [input, setInput] = useState(0)
   const [output, setOutput] = useState(0)
 
-  const valueHandler = (event) => {
-    setValue(parseInt(event.target.value))
-    // console.log(parseInt(event.target.value))
-    inputHandler(parseInt(event.target.value))
-    outputHandler(parseInt(event.target.value))
+  const [firstSelectedCurrency, setFirstSelectedCurrency] = useState("UAH")
+  const [secondSelectedCurrency, setSecondSelectedCurrency] = useState("USD")
+
+  const firstCurrencyHanlder = (event) => {
+    setFirstSelectedCurrency(event.target.value)
+
+    setOutput(
+      parseFloat(
+        input *
+          (currency.find((data) => data.name === event.target.value).rate /
+            currency.find((data) => data.name === secondSelectedCurrency).rate)
+      ).toFixed(2)
+    )
   }
 
-  const inputHandler = (value) => {
-    // inputHandler(event)
-    setInput(value + 5)
-    // setOutput(input + 5)
+  const secondCurrencyHandler = (event) => {
+    setSecondSelectedCurrency(event.target.value)
+
+    setOutput(
+      parseFloat(
+        input /
+          (currency.find((data) => data.name === event.target.value).rate /
+            currency.find((data) => data.name === firstSelectedCurrency).rate)
+      ).toFixed(2)
+    )
   }
 
-  const outputHandler = (value) => {
-    // inputHandler(event)
-    setOutput(value + 5)
-    // setOutput(input + 5)
+  const inputHandler = (event) => {
+    setOutput(
+      parseFloat(
+        event.target.value /
+          currency.find((data) => data.name === secondSelectedCurrency).rate /
+          currency.find((data) => data.name === firstSelectedCurrency).rate
+      ).toFixed(2)
+    )
+    setInput(event.target.value)
+  }
+
+  const outputHandler = (event) => {
+    setInput(
+      parseFloat(
+        event.target.value *
+          parseInt(
+            currency.find((data) => data.name === secondSelectedCurrency).rate /
+              currency.find((data) => data.name === firstSelectedCurrency).rate
+          )
+      ).toFixed(2)
+    )
+    setOutput(event.target.value)
   }
 
   return (
@@ -32,64 +63,62 @@ function Main() {
           {/* input */}
           <div className={classes.inputBox}>
             <label className={classes.text} htmlFor="inputCurrency">
-              Input currency
+              Я маю
             </label>
             <input
-              // placeholder="Write you value"
               type="number"
               min={0}
               value={input}
-              onChange={valueHandler}
+              onChange={inputHandler}
               name="inputCurrency"
               id="inputCurrency"
-              className={classes.text}
+              className={classes.input}
             />
-            <span className={classes.text}>1 UAH = 0.025USD</span>
           </div>
 
           {/* select currency */}
           <div>
-            <select>
-              <option>UAH</option>
-              <option>USD</option>
-              <option>EUR</option>
+            <select
+              value={firstSelectedCurrency}
+              onChange={firstCurrencyHanlder}
+              className={classes.select}
+            >
+              <option value={"UAH"}>UAH</option>
+              <option value={"USD"}>USD</option>
+              <option value={"EUR"}>EUR</option>
             </select>
           </div>
-          {/*  */}
-        </div>
-        {/* change to oposite */}
-        <div className={classes.change}>
-          <button className={classes.button}>Change</button>
         </div>
 
         <div className={classes.currencyBox}>
           {/* input */}
           <div className={classes.inputBox}>
             <label className={classes.text} htmlFor="outputCurrency">
-              Input currency
+              Я отримаю
             </label>
             <input
-              // placeholder="Write you value"
               type="number"
               min={0}
               value={output}
               onChange={outputHandler}
               name="outputCurrency"
               id="outputCurrency"
-              className={classes.text}
+              className={classes.input}
             />
-            <span className={classes.text}>1 USD = 40 UAH</span>
           </div>
 
           {/* select currency */}
           <div>
-            <select>
-              <option>UAH</option>
-              <option>USD</option>
-              <option>EUR</option>
+            <select
+              value={secondSelectedCurrency}
+              onChange={secondCurrencyHandler}
+              className={classes.select}
+            >
+              <option value={"UAH"}>UAH</option>
+              <option value={"USD"}>USD</option>
+              <option value={"EUR"}>EUR</option>
             </select>
           </div>
-          {/*  */}
         </div>
       </div>
     </main>

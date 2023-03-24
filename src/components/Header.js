@@ -4,12 +4,12 @@ function Header(props) {
   return (
     <nav className={classes.box}>
       <div className={classes.name}>
-        <span>Currancy exchange</span>
+        <span>Конвертер валют</span>
       </div>
       <div className={classes.currencyBox}>
-        {props.currency.map((item) => (
-          <div className={classes.currency}>
-            <span>{item.cc}</span>
+        {props.currency.slice(1).map((item) => (
+          <div className={classes.currency} key={item.name}>
+            <span>{item.name}:</span>
             <span>{parseFloat(item.rate).toFixed(1)}</span>
           </div>
         ))}
