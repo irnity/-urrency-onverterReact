@@ -36,6 +36,7 @@
 .input {
   font-size: 1.2em;
   margin: 5px 25px;
+  width: 75%;
   border: 1px solid gainsboro;
   border-radius: 5px;
 }
@@ -45,4 +46,18 @@
   margin: 35px 10px 0 10px;
   border: 1px solid gainsboro;
   border-radius: 10px;
+}
+@media all and (max-width: 1380px) {
+  .info {
+    height: 100%;
+    flex-direction: column;
+    padding: 15px;
+  }
+  .input {
+    margin: 25px 0;
+    font-size: 0.8em;
+  }
+  .text {
+    font-size: 1em;
+  }
 }
